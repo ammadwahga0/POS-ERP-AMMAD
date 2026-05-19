@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+body {
+  font-family: Inter, system-ui, Arial;
+  background: #f3f4f6;
+}
+
+/* CARD SYSTEM */
+.card {
+  @apply bg-white rounded-2xl shadow-sm border border-gray-100 p-6;
+}
+
+/* BUTTON */
+.btn-primary {
+  @apply bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl transition;
+}
+
+/* SIDEBAR ITEM */
+.nav-item {
+  @apply block p-3 rounded-xl hover:bg-blue-600 transition cursor-pointer;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .print-area,
+  .print-area * {
+    visibility: visible;
+  }
+
+  .print-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    
+  }
+
+  button {
+    display: none;
+  }
+}
