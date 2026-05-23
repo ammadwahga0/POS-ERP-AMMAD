@@ -9,6 +9,7 @@ import Reports from "./pages/reports";
 import Orders from "./pages/orders";
 import Invoice from "./pages/invoice";
 import Users from "./pages/users";;
+import Manual from "./pages/manual";  
 
 
 import DashboardLayout from "./layouts/DashboardLayout";
@@ -58,7 +59,14 @@ function App() {
         <Route path="users" 
           element={<Users />} 
         />
+        
+        <Route path="invoice" 
+          element={<Invoice />} 
+        />
 
+        <Route path="manual"
+          element={<Manual />}
+        />
       </Route>
 
     </Routes>

@@ -1,4 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
+import { QRCodeCanvas } from "qrcode.react";
 
 function Invoice() {
   const location = useLocation();
@@ -36,9 +37,31 @@ function Invoice() {
   const date = new Date().toLocaleString();
   const items = order.items || [];
 
+  const invoiceQrValue = JSON.stringify({
+    type: "invoice",
+    invoiceId: order.id,
+    date,
+    customer: {
+      name: order.customer?.name || "Walk-in Customer",
+      phone: order.customer?.phone || "",
+    },
+    total: order.total,
+    items: items.map((item) => {
+      const quantity = Number(item.quantity || item.qty || 0);
+      const price = Number(item.price || 0);
+
+      return {
+        productId: item.productId || item.product?.id || "",
+        name: item.product?.name || item.name || "Unknown Product",
+        quantity,
+        price,
+        lineTotal: price * quantity,
+      };
+    }),
+  });
+
   return (
     <div className="flex min-h-screen justify-center bg-slate-100 p-4 print:bg-white print:p-0">
-      {/* RECEIPT */}
       <div className="print-area w-full max-w-[380px] rounded-2xl bg-white p-5 text-sm font-mono shadow-xl shadow-slate-200/80 print:w-[320px] print:rounded-none print:p-3 print:shadow-none">
         {/* STORE HEADER */}
         <div className="border-b border-dashed border-slate-300 pb-3 text-center">
@@ -101,13 +124,16 @@ function Invoice() {
                 const quantity = Number(item.quantity || item.qty || 0);
                 const price = Number(item.price || 0);
                 const lineTotal = price * quantity;
+                const productId = item.productId || item.product?.id || "";
+                const productName =
+                  item.product?.name || item.name || "Unknown Product";
 
                 return (
                   <div key={index} className="flex text-xs text-slate-800">
                     <div className="w-1/2 pr-2">
-                      {item.product?.name || item.name || "Unknown Product"}
+                      {productName}
                       <p className="text-[11px] text-slate-500">
-                        Rs {price} each
+                        ID: {productId || "N/A"} | Rs {price} each
                       </p>
                     </div>
 
@@ -128,6 +154,22 @@ function Invoice() {
           <div className="flex justify-between text-base font-black text-slate-950">
             <span>Total</span>
             <span>Rs {order.total}</span>
+          </div>
+        </div>
+
+        {/* FULL INVOICE QR */}
+        <div className="mt-4 border-t border-dashed border-slate-300 pt-3 text-center">
+          <p className="mb-2 text-[11px] font-black uppercase text-slate-500">
+            Scan for full invoice
+          </p>
+
+          <div className="flex justify-center">
+            <QRCodeCanvas
+              value={invoiceQrValue}
+              size={96}
+              level="M"
+              includeMargin
+            />
           </div>
         </div>
 
