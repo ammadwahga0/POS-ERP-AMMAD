@@ -1,6 +1,9 @@
 node_modules
-.env
-dev.db
 client/node_modules
 server/node_modules
+.env
+server/.env
+client/.env
+*.db
 server/prisma/dev.db
+.DS_Store
