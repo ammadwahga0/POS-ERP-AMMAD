@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 
-import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
+import Login from "./pages/login";
+import Dashboard from "./pages/dashboard";
 import Products from "./pages/products";
 import POS from "./pages/pos";
 import Customers from "./pages/customers";
@@ -12,7 +12,7 @@ import Users from "./pages/users";;
 import Manual from "./pages/manual";  
 
 
-import DashboardLayout from "./layouts/DashboardLayout";
+import DashboardLayout from "./layouts/dashboardlayout";
 
 function App() {
   return (
