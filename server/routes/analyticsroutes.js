@@ -4,7 +4,7 @@ const router = express.Router();
 
 const {
   getAnalytics,
-} = require("../controllers/analyticsController");
+} = require("../controllers/analyticscontroller");
 
 router.get("/", getAnalytics);
 
